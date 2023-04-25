@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:twitter_clone/app/domain/usecases/create_account_usecase.dart';
 import 'package:twitter_clone/core/utils/constants.dart';
+
+import '../../../data/models/auth_request_status_model.dart';
+import '../../../data/repository/auth_repository.dart';
+import '../../../data/source/auth_remote_data_source.dart';
 
 class CreateAccountScreen extends StatelessWidget {
   const CreateAccountScreen({Key? key}) : super(key: key);
@@ -106,11 +111,66 @@ class CreateAccountScreen extends StatelessWidget {
                               right: 20,
                             ),
                             content: Container(
-                              child: Column(
-                                children: [Text('hello'), Text('error')],
+                              child: Text(
+                                'Credentials can\'t be empty.',
                               ),
                             ),
                           ));
+                        } else {
+                          final BaseAuthenticationDataSource
+                              baseAuthenticationDataSource =
+                              AuthenticationDataSource();
+                          final AuthenticationRepository
+                              authenticationRepository =
+                              AuthenticationRepository(
+                                  baseAuthenticationDataSource:
+                                      baseAuthenticationDataSource);
+                          final CreateAccountUsecase createAccountUsecase =
+                              CreateAccountUsecase(authenticationRepository);
+                          final Future<AuthRequestStatus> request;
+                          request =
+                              createAccountUsecase.execute(email, password);
+                          request.then((value) {
+                            if (value.code == 0) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                backgroundColor: Constants.successColor,
+                                behavior: SnackBarBehavior.floating,
+                                showCloseIcon: true,
+                                closeIconColor: Constants.whiteColor,
+                                margin: EdgeInsets.only(
+                                  bottom:
+                                      MediaQuery.of(context).size.height * 0.8,
+                                  left: 20,
+                                  right: 20,
+                                ),
+                                content: Container(
+                                  child: Text(
+                                    value.status,
+                                  ),
+                                ),
+                              ));
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                backgroundColor: Constants.errorColor,
+                                behavior: SnackBarBehavior.floating,
+                                showCloseIcon: true,
+                                closeIconColor: Constants.whiteColor,
+                                margin: EdgeInsets.only(
+                                  bottom:
+                                      MediaQuery.of(context).size.height * 0.8,
+                                  left: 20,
+                                  right: 20,
+                                ),
+                                content: Container(
+                                  child: Text(
+                                    value.status,
+                                  ),
+                                ),
+                              ));
+                            }
+                          });
                         }
                       },
                       child: Text('Register'),

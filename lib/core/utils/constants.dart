@@ -6,6 +6,8 @@ class Constants {
   static const Color secondaryColor = Color(0xFF323C57);
   static const Color whiteColor = Color(0xFFFFFFFF);
   static const Color greyColor = Color(0xFFAEB2BC);
+  static const Color errorColor = Color(0xFFFF5252);
+  static const Color successColor = Color(0xFF4CAF50);
 
   // Icons paths
   static const String twitter = 'assets/icons/twitter.svg';
