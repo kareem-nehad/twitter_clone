@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:twitter_clone/app/presentation/screens/create_account_screen/create_account.dart';
 import 'package:twitter_clone/core/utils/constants.dart';
 
 class IntroductionScreen extends StatelessWidget {
@@ -16,13 +18,10 @@ class IntroductionScreen extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.topCenter,
-              child: Hero(
-                tag: 'twitterIcon',
-                child: SvgPicture.asset(
-                  Constants.twitter,
-                  height: 1000.0.sp,
-                  width: 1000.0.sp,
-                ),
+              child: SvgPicture.asset(
+                Constants.twitter,
+                height: 1000.0.sp,
+                width: 1000.0.sp,
               ),
             ),
             const SizedBox(
@@ -56,7 +55,7 @@ class IntroductionScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/createAccount');
+                Navigator.push(context, PageTransition(child: CreateAccountScreen(), type: PageTransitionType.rightToLeftPop, childCurrent: this));
               },
               child: Text('Create account'),
               style: ElevatedButton.styleFrom(

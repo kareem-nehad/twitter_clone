@@ -16,9 +16,9 @@ class AuthenticationDataSource extends BaseAuthenticationDataSource {
         email: email,
         password: password,
       );
-      return new AuthRequestStatus(status: 'Success', code: 0);
+      return AuthRequestStatus(status: 'success', code: 0);
     } on FirebaseAuthException catch (e) {
-      return new AuthRequestStatus(status: e.message!, code: 1);
+      return AuthRequestStatus(status: 'failure', code: 1);
     }
   }
 }

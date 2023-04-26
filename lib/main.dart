@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:twitter_clone/app/presentation/screens/create_account_screen/create_account.dart';
 import 'package:twitter_clone/app/presentation/screens/introduction_screen/introduction_screen.dart';
+import 'package:twitter_clone/core/services/service_locator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  ServiceLocator().init();
   runApp(const MyApp());
 }
 
