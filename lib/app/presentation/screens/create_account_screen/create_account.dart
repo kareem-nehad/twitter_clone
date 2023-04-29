@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:twitter_clone/app/presentation/controller/create_account_bloc/create_account_bloc.dart';
 import 'package:twitter_clone/app/presentation/screens/introduction_screen/introduction_screen.dart';
+import 'package:twitter_clone/app/presentation/screens/log_in_screen/log_in_screen.dart';
 import 'package:twitter_clone/core/utils/constants.dart';
 
 import '../../../../core/services/service_locator.dart';
@@ -16,20 +17,28 @@ class CreateAccountScreen extends StatelessWidget {
     String username = '';
     String email = '';
     String password = '';
+    ValueNotifier<bool> charLimit = ValueNotifier(false);
+    ValueNotifier<bool> containsNumbers = ValueNotifier(false);
+    ValueNotifier<bool> containsUppercase = ValueNotifier(false);
 
     return BlocProvider(
       create: (BuildContext context) => sl<CreateAccountBloc>(),
       child: BlocBuilder<CreateAccountBloc, CreateAccountState>(
         builder: (context, state) {
-          print(state.status);
+
           switch (state.status) {
             case AuthStatus.unauthenticated:
               break;
             case AuthStatus.loading:
               WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-               showDialog(context: context, builder: (context) {
-                 return Center(child: CircularProgressIndicator(color: Constants.primaryColor,));
-               });
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Center(
+                          child: CircularProgressIndicator(
+                        color: Constants.primaryColor,
+                      ));
+                    });
               });
               break;
             case AuthStatus.success:
@@ -52,7 +61,13 @@ class CreateAccountScreen extends StatelessWidget {
                   ),
                 ));
               });
-              Navigator.maybePop(context, PageTransition(child: IntroductionScreen() , type: PageTransitionType.leftToRightPop, childCurrent: this));
+              Navigator.maybePop(
+                  context,
+                  PageTransition(
+                    child: IntroductionScreen(),
+                    type: PageTransitionType.leftToRightPop,
+                    childCurrent: this,
+                  ));
               break;
             case AuthStatus.failure:
               Navigator.pop(context);
@@ -144,6 +159,25 @@ class CreateAccountScreen extends StatelessWidget {
                             child: TextFormField(
                               onChanged: (value) {
                                 password = value;
+                                print(value);
+
+                                if (password.length >= 8) {
+                                  charLimit.value = true;
+                                } else {
+                                  charLimit.value = false;
+                                }
+
+                                if (password.contains(new RegExp(r'[0-9]'))) {
+                                  containsNumbers.value = true;
+                                } else {
+                                  containsNumbers.value = false;
+                                }
+
+                                if (value.contains(new RegExp(r'[A-Z]'))) {
+                                  containsUppercase.value = true;
+                                } else {
+                                  containsUppercase.value = false;
+                                }
                               },
                               obscureText: true,
                               decoration: InputDecoration(
@@ -162,7 +196,8 @@ class CreateAccountScreen extends StatelessWidget {
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              FocusScope.of(context).requestFocus(new FocusNode());
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
                               if (username == '' ||
                                   email == '' ||
                                   password == '') {
@@ -184,9 +219,31 @@ class CreateAccountScreen extends StatelessWidget {
                                   ),
                                 ));
                               } else {
-                                print('email -> $email');
-                                context.read<CreateAccountBloc>()
-                                  .add(CreateAccount(email: email, password: password));
+                                if (charLimit.value && containsNumbers.value && containsUppercase.value) {
+                                  context.read<CreateAccountBloc>().add(
+                                      CreateAccount(
+                                          email: email, password: password));
+                                } else {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    backgroundColor: Colors.redAccent,
+                                    behavior: SnackBarBehavior.floating,
+                                    showCloseIcon: true,
+                                    closeIconColor: Constants.whiteColor,
+                                    margin: EdgeInsets.only(
+                                      bottom: MediaQuery.of(context).size.height *
+                                          0.8,
+                                      left: 20,
+                                      right: 20,
+                                    ),
+                                    content: Container(
+                                      child: Text(
+                                        'Password must satisfy all constraints.',
+                                      ),
+                                    ),
+                                  ));
+                                }
+
                               }
                             },
                             child: Text('Register'),
@@ -200,6 +257,91 @@ class CreateAccountScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+                          SizedBox(
+                            height: 50,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Row(
+                              children: [
+                                ValueListenableBuilder(valueListenable: charLimit, builder: (context, value, child) {
+                                  return Icon(
+                                    value ? Icons.check : Icons.close,
+                                    color: value
+                                        ? Constants.successColor
+                                        : Constants.errorColor,
+                                  );
+                                }),
+                                ValueListenableBuilder(valueListenable: charLimit, builder: (context, value, child) {
+                                  return Text(
+                                    'Contains at least 8 characters.',
+                                    style: TextStyle(
+                                      fontFamily: Constants.fontFamily,
+                                      fontSize: 16,
+                                      color: value
+                                          ? Constants.successColor
+                                          : Constants.errorColor,
+                                    ),
+                                  );
+                                })
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Row(
+                              children: [
+                                ValueListenableBuilder(valueListenable: containsNumbers, builder: (context, value, child) {
+                                  return Icon(
+                                    value ? Icons.check : Icons.close,
+                                    color: value
+                                        ? Constants.successColor
+                                        : Constants.errorColor,
+                                  );
+                                }),
+                                ValueListenableBuilder(valueListenable: containsNumbers, builder: (context, value, child) {
+                                  return Text(
+                                    'Contains numbers.',
+                                    style: TextStyle(
+                                      fontFamily: Constants.fontFamily,
+                                      fontSize: 16,
+                                      color: value
+                                          ? Constants.successColor
+                                          : Constants.errorColor,
+                                    ),
+                                  );
+                                })
+
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Row(
+                              children: [
+                                ValueListenableBuilder(valueListenable: containsUppercase, builder: (context, value, child) {
+                                  return Icon(
+                                    value ? Icons.check : Icons.close,
+                                    color: value
+                                        ? Constants.successColor
+                                        : Constants.errorColor,
+                                  );
+                                }),
+                                ValueListenableBuilder(valueListenable: containsUppercase, builder: (context, value, child) {
+                                  return Text(
+                                    'Contains uppercase characters.',
+                                    style: TextStyle(
+                                      fontFamily: Constants.fontFamily,
+                                      fontSize: 16,
+                                      color: value
+                                          ? Constants.successColor
+                                          : Constants.errorColor,
+                                    ),
+                                  );
+                                })
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     )

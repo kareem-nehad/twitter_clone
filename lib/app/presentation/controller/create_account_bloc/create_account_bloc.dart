@@ -28,7 +28,7 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
         emit(state.copyWith(status: AuthStatus.success));
         break;
       case 1:
-        emit(state.copyWith(status: AuthStatus.failure, message: 'Error'));
+        emit(state.copyWith(status: AuthStatus.failure, message: response.status));
         break;
     }
   }
