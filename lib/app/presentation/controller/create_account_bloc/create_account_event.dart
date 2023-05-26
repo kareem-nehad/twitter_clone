@@ -11,6 +11,7 @@ abstract class CreateAccountEvent extends Equatable {
 class CreateAccount extends CreateAccountEvent {
   final String email;
   final String password;
+  final String username;
 
-  const CreateAccount({required this.email, required this.password});
+  const CreateAccount({required this.email, required this.password, required this.username});
 }

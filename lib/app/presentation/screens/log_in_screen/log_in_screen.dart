@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:twitter_clone/app/presentation/controller/login_bloc/login_bloc.dart';
 import 'package:twitter_clone/app/presentation/screens/home_screen/home_screen.dart';
 import 'package:twitter_clone/core/utils/constants.dart';
@@ -32,7 +30,23 @@ class LogInScreen extends StatelessWidget {
 
               break;
             case LoginStatus.failure:
-              // Display error in a snackbar.
+              // Navigator.pop(context);
+              WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                ScaffoldMessenger.maybeOf(context)?.showSnackBar(SnackBar(
+                  backgroundColor: Colors.redAccent,
+                  behavior: SnackBarBehavior.floating,
+                  showCloseIcon: true,
+                  closeIconColor: Constants.whiteColor,
+                  margin: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).size.height * 0.8,
+                    left: 20,
+                    right: 20,
+                  ),
+                  content: Container(
+                    child: Text(state.message),
+                  ),
+                ));
+              });
               break;
             case LoginStatus.loading:
               WidgetsBinding.instance.addPersistentFrameCallback((timeStamp) {

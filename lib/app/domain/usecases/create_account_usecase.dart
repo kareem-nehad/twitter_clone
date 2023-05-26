@@ -6,7 +6,7 @@ class CreateAccountUsecase {
 
   CreateAccountUsecase(this.baseAuthenticationRepository);
 
-  Future<AuthRequestStatus> execute(String email, String password) async {
-    return await baseAuthenticationRepository.createAccount(email, password);
+  Future<AuthRequestStatus> execute(String email, String password, String username) async {
+    return await baseAuthenticationRepository.createAccount(email, password, username);
   }
 }

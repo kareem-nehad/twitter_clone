@@ -11,6 +11,10 @@ class Constants {
 
   // Icons paths
   static const String twitter = 'assets/icons/twitter.svg';
+  static const String home = 'assets/icons/home.svg';
+  static const String search = 'assets/icons/search.svg';
+  static const String tweet = 'assets/icons/tweet.svg';
+  static const String user = 'assets/icons/user.svg';
 
   // Fonts
   static const fontFamily = 'Rubik';

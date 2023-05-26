@@ -8,7 +8,7 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
   AuthenticationRepository({ required this.baseAuthenticationDataSource});
 
   @override
-  Future<AuthRequestStatus> createAccount(String email, String password) async {
-    return await baseAuthenticationDataSource.createAccount(email, password);
+  Future<AuthRequestStatus> createAccount(String email, String password,String username) async {
+    return await baseAuthenticationDataSource.createAccount(email, password, username);
   }
 }

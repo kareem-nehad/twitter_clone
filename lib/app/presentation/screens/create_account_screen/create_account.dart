@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:twitter_clone/app/presentation/controller/create_account_bloc/create_account_bloc.dart';
 import 'package:twitter_clone/app/presentation/screens/introduction_screen/introduction_screen.dart';
-import 'package:twitter_clone/app/presentation/screens/log_in_screen/log_in_screen.dart';
 import 'package:twitter_clone/core/utils/constants.dart';
 
 import '../../../../core/services/service_locator.dart';
@@ -223,7 +222,7 @@ class CreateAccountScreen extends StatelessWidget {
                                 if (charLimit.value && containsNumbers.value && containsUppercase.value) {
                                   context.read<CreateAccountBloc>().add(
                                       CreateAccount(
-                                          email: email, password: password));
+                                          email: email, password: password, username: username));
                                 } else {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(SnackBar(
