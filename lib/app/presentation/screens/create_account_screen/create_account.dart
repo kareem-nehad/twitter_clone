@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:twitter_clone/app/presentation/controller/create_account_bloc/create_account_bloc.dart';
@@ -114,7 +115,7 @@ class CreateAccountScreen extends StatelessWidget {
                             style: TextStyle(
                                 fontFamily: Constants.fontFamily,
                                 fontWeight: Constants.mediumFont,
-                                fontSize: 30,
+                                fontSize: 30.sp,
                                 color: Constants.whiteColor),
                           ),
                           SizedBox(
