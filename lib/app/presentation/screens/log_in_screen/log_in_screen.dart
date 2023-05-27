@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:twitter_clone/app/presentation/controller/login_bloc/login_bloc.dart';
 import 'package:twitter_clone/app/presentation/screens/home_screen/home_screen.dart';
 import 'package:twitter_clone/core/utils/constants.dart';
+import 'package:twitter_clone/core/utils/user_preferences.dart';
 
 import '../../../../core/services/service_locator.dart';
 
@@ -22,6 +23,10 @@ class LogInScreen extends StatelessWidget {
           switch (state.status) {
             case LoginStatus.success:
               // Go to home screen.
+            if (rememberMe.value) {
+              UserPreferences.setUserEmail(email);
+              UserPreferences.setUserPassword(password);
+            }
             Navigator.pop(context);
               WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
                 Navigator.pushReplacement(context,

@@ -1,16 +1,24 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:twitter_clone/app/presentation/screens/create_account_screen/create_account.dart';
+import 'package:twitter_clone/app/presentation/screens/home_screen/home_screen.dart';
 import 'package:twitter_clone/app/presentation/screens/introduction_screen/introduction_screen.dart';
 import 'package:twitter_clone/core/services/service_locator.dart';
 import 'package:twitter_clone/core/utils/user_preferences.dart';
+
+Widget startingScreen = IntroductionScreen();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   ServiceLocator().init();
   await UserPreferences.init();
+  if (UserPreferences.getUserEmail() != null && UserPreferences.getUserPassword() != null) {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(email: UserPreferences.getUserEmail()!, password: UserPreferences.getUserPassword()!);
+    startingScreen = HomeScreen();
+  }
   runApp(const MyApp());
 }
 
@@ -29,13 +37,10 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,
           home: child,
-          routes: {
-            '/createAccount': (context) => const CreateAccountScreen()
-          },
         );
       },
       designSize: Size(1080, 2280),
-      child: const IntroductionScreen(),
+      child: startingScreen,
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserPreferences {
@@ -13,5 +15,21 @@ class UserPreferences {
 
   static String? getUserUID () {
     return _preferences?.getString('uid');
+  }
+
+  static Future setUserEmail (String? email) async {
+    await _preferences?.setString('email', email!);
+  }
+
+  static String? getUserEmail () {
+    return _preferences?.getString('email');
+  }
+
+  static Future setUserPassword (String? password) async {
+    await _preferences?.setString('password', password!);
+  }
+
+  static String? getUserPassword () {
+    return _preferences?.getString('password');
   }
 }
