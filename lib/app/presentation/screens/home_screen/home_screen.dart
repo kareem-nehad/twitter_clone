@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:twitter_clone/app/presentation/controller/home_bloc/home_bloc.dart';
 import 'package:twitter_clone/app/presentation/controller/home_bloc/home_state.dart';
-import 'package:twitter_clone/core/utils/constants.dart';
+import 'package:twitter_clone/app/presentation/screens/home_screen/components/loading_home.dart';
 import '../../../../core/services/service_locator.dart';
 import '../../controller/home_bloc/home_event.dart';
-import 'components/home_nav_bar.dart';
+import 'components/loaded_home.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,84 +21,23 @@ class HomeScreen extends StatelessWidget {
             case HomeStatus.success:
               print('SUCCESS');
               username.value = state.userName;
-              print(username.value);
-              break;
+              return LoadedHome(username: username);
+
             case HomeStatus.failure:
               print('FAILURE');
               break;
             case HomeStatus.loading:
               print('LOADING');
-              break;
+              return LoadingHome();
 
             default:
               break;
           }
-
-          return SafeArea(
-            child: Scaffold(
-              backgroundColor: Color(0xFF262C4C),
-              body: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 20, right: 20, top: 20),
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: Colors.white,
-                            radius: 30,
-                            child: Image.asset(
-                              'assets/images/user_image.png',
-                              height: 30,
-                              width: 30,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Column(
-                              children: [
-                                ValueListenableBuilder(
-                                  valueListenable: username,
-                                  builder: (context, value, child) {
-                                    return Text(
-                                      value,
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontFamily: Constants.fontFamily,
-                                          fontWeight: Constants.lightFont,
-                                          color: Colors.white),
-                                    );
-                                  },
-                                ),
-                                Text(
-                                  '@kareem',
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: Constants.fontFamily,
-                                      fontWeight: Constants.lightFont,
-                                      color: Colors.white),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      color: Colors.white,
-                      width: double.infinity,
-                      child: Icon(Icons.abc),
-                    )
-                  ],
-                ),
-              ),
-              bottomNavigationBar: NavBar(),
-            ),
-          );
+          return Container();
         },
       ),
     );
   }
 }
+
+

@@ -25,11 +25,19 @@ class UserPreferences {
     return _preferences?.getString('email');
   }
 
+  static Future clearUserEmail () async {
+    await _preferences?.remove('email');
+  }
+
   static Future setUserPassword (String? password) async {
     await _preferences?.setString('password', password!);
   }
 
   static String? getUserPassword () {
     return _preferences?.getString('password');
+  }
+
+  static Future clearUserPassword () async {
+    await _preferences?.remove('password');
   }
 }
