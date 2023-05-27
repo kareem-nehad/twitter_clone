@@ -19,10 +19,13 @@ class IntroductionScreen extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.topCenter,
-              child: SvgPicture.asset(
-                Constants.twitter,
-                height: 1000.0.sp,
-                width: 1000.0.sp,
+              child: Hero(
+                tag: 'Intro Picture',
+                child: SvgPicture.asset(
+                  Constants.twitter,
+                  height: 1000.0.sp,
+                  width: 1000.0.sp,
+                ),
               ),
             ),
             const SizedBox(

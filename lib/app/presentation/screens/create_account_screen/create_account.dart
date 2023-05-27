@@ -97,10 +97,13 @@ class CreateAccountScreen extends StatelessWidget {
                 builder: (context, constraints) => Stack(
                   children: [
                     Positioned(
-                      child: SvgPicture.asset(
-                        Constants.twitter,
-                        colorFilter: ColorFilter.mode(
-                            Color(0xFF1D2847), BlendMode.srcIn),
+                      child: Hero(
+                        tag: 'Intro Picture',
+                        child: SvgPicture.asset(
+                          Constants.twitter,
+                          colorFilter: ColorFilter.mode(
+                              Color(0xFF1D2847), BlendMode.srcIn),
+                        ),
                       ),
                       right: constraints.maxWidth * 0.3,
                     ),
