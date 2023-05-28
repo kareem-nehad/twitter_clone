@@ -15,6 +15,10 @@ class Constants {
   static const String search = 'assets/icons/search.svg';
   static const String tweet = 'assets/icons/tweet.svg';
   static const String user = 'assets/icons/user.svg';
+  static const String reply = 'assets/icons/chat.svg';
+  static const String retweet = 'assets/icons/retweet.svg';
+  static const String like = 'assets/icons/like.svg';
+  static const String share  = 'assets/icons/share.svg';
 
   // Fonts
   static const fontFamily = 'Rubik';
