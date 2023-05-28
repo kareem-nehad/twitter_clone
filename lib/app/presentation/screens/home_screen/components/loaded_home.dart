@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:twitter_clone/app/data/source/feed_data_source.dart';
 import 'package:twitter_clone/app/presentation/screens/home_screen/components/side_nav.dart';
 
 import '../../../../../core/utils/constants.dart';
 import '../../../../../core/utils/user_preferences.dart';
+import '../../../../domain/entities/tweet.dart';
 import 'home_nav_bar.dart';
 
 class LoadedHome extends StatelessWidget {
-  const LoadedHome({
-    super.key,
-    required this.username,
-  });
+  const LoadedHome({super.key, required this.username, required this.tweets});
 
   final ValueNotifier<String> username;
+  final ValueNotifier<List<Tweet>> tweets;
 
   @override
   Widget build(BuildContext context) {
+    FeedDataSource dataSource = FeedDataSource();
+    dataSource.getFeed();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xFF262C4C),
@@ -28,8 +30,8 @@ class LoadedHome extends StatelessWidget {
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(
-                            left: 20, right: 20, top: 20),
+                        padding:
+                            const EdgeInsets.only(left: 20, right: 20, top: 20),
                         child: Row(
                           children: [
                             InkWell(
@@ -42,7 +44,9 @@ class LoadedHome extends StatelessWidget {
                                   width: 30,
                                 ),
                               ),
-                              onTap: () {Scaffold.of(context).openDrawer();},
+                              onTap: () {
+                                Scaffold.of(context).openDrawer();
+                              },
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 10),
@@ -55,17 +59,14 @@ class LoadedHome extends StatelessWidget {
                                         value,
                                         style: TextStyle(
                                             fontSize: 16,
-                                            fontFamily:
-                                            Constants.fontFamily,
-                                            fontWeight:
-                                            Constants.regularFont,
+                                            fontFamily: Constants.fontFamily,
+                                            fontWeight: Constants.regularFont,
                                             color: Colors.white),
                                       );
                                     },
                                   ),
                                   Text(
-                                    '@${UserPreferences.getUserUID()!
-                                        .substring(0, 8)}',
+                                    '@${UserPreferences.getUserUID()!.substring(0, 8)}',
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontFamily: Constants.fontFamily,
@@ -81,16 +82,16 @@ class LoadedHome extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 20),
                         child: Container(
-                          child: Icon(Icons.abc),
-                          width: double.infinity,
-                          height: 2000,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            ),
-                          ),
+                          color: Colors.white,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                              physics: BouncingScrollPhysics(),
+                              itemCount: tweets.value.length,
+                              itemBuilder: (context, index) {
+                                return Text(
+                                  '${tweets.value[index].content}',
+                                );
+                              }),
                         ),
                       ),
                     ],

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:twitter_clone/app/presentation/screens/introduction_screen/introduction_screen.dart';
 import 'package:twitter_clone/core/utils/constants.dart';
 import 'package:twitter_clone/core/utils/user_preferences.dart';
@@ -32,7 +33,7 @@ class _SideNavState extends State<SideNav> {
             UserPreferences.clearUserEmail();
             UserPreferences.clearUserPassword();
             await FirebaseAuth.instance.signOut();
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const IntroductionScreen()));
+            Navigator.pushReplacement(context, PageTransition(child: IntroductionScreen(), type: PageTransitionType.leftToRight, curve: Curves.easeIn));
 
           },
         )

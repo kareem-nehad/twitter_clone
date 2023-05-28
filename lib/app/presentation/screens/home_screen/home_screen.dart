@@ -4,6 +4,7 @@ import 'package:twitter_clone/app/presentation/controller/home_bloc/home_bloc.da
 import 'package:twitter_clone/app/presentation/controller/home_bloc/home_state.dart';
 import 'package:twitter_clone/app/presentation/screens/home_screen/components/loading_home.dart';
 import '../../../../core/services/service_locator.dart';
+import '../../../domain/entities/tweet.dart';
 import '../../controller/home_bloc/home_event.dart';
 import 'components/loaded_home.dart';
 
@@ -13,15 +14,17 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ValueNotifier<String> username = ValueNotifier('');
+    ValueNotifier<List<Tweet>> tweets = ValueNotifier([]);
     return BlocProvider(
-      create: (BuildContext context) => sl<HomeBloc>()..add(GetUserDataEvent()),
+      create: (BuildContext context) => sl<HomeBloc>()..add(GetUserDataEvent())..add(GetFeedEvent()),
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           switch (state.status) {
             case HomeStatus.success:
               print('SUCCESS');
               username.value = state.userName;
-              return LoadedHome(username: username);
+              tweets.value = state.tweets;
+              return LoadedHome(username: username, tweets: tweets,);
 
             case HomeStatus.failure:
               print('FAILURE');
