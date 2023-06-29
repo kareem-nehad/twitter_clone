@@ -7,7 +7,7 @@ enum HomeStatus { success, failure, loading }
 
 class HomeState extends Equatable {
   final String userName;
-  final List<Tweet> tweets;
+  final List<TweetObject> tweets;
   final HomeStatus status;
 
   HomeState({
@@ -18,7 +18,7 @@ class HomeState extends Equatable {
 
   HomeState copyWith({
     String? userName,
-    List<Tweet>? tweets,
+    List<TweetObject>? tweets,
     HomeStatus? status
 }) {
     return HomeState(

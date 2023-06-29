@@ -12,12 +12,10 @@ class LoadedHome extends StatelessWidget {
   const LoadedHome({super.key, required this.username, required this.tweets});
 
   final ValueNotifier<String> username;
-  final ValueNotifier<List<Tweet>> tweets;
+  final ValueNotifier<List<TweetObject>> tweets;
 
   @override
   Widget build(BuildContext context) {
-    FeedDataSource dataSource = FeedDataSource();
-    dataSource.getFeed();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xFF262C4C),
@@ -31,8 +29,7 @@ class LoadedHome extends StatelessWidget {
                   child: Column(
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsets.only(left: 20, right: 20, top: 20),
+                        padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
                         child: Row(
                           children: [
                             InkWell(
@@ -59,20 +56,22 @@ class LoadedHome extends StatelessWidget {
                                       return Text(
                                         value,
                                         style: TextStyle(
-                                            fontSize: 16,
-                                            fontFamily: Constants.fontFamily,
-                                            fontWeight: Constants.regularFont,
-                                            color: Colors.white),
+                                          fontSize: 16,
+                                          fontFamily: Constants.fontFamily,
+                                          fontWeight: Constants.regularFont,
+                                          color: Colors.white,
+                                        ),
                                       );
                                     },
                                   ),
                                   Text(
                                     '@${UserPreferences.getUserUID()!.substring(0, 8)}',
                                     style: TextStyle(
-                                        fontSize: 12,
-                                        fontFamily: Constants.fontFamily,
-                                        fontWeight: Constants.regularFont,
-                                        color: Colors.white),
+                                      fontSize: 12,
+                                      fontFamily: Constants.fontFamily,
+                                      fontWeight: Constants.regularFont,
+                                      color: Colors.white,
+                                    ),
                                   )
                                 ],
                               ),
@@ -86,8 +85,9 @@ class LoadedHome extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(20),
-                                topLeft: Radius.circular(20)),
+                              topRight: Radius.circular(20),
+                              topLeft: Radius.circular(20),
+                            ),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.only(top: 20),
@@ -100,11 +100,9 @@ class LoadedHome extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10),
+                                          padding: const EdgeInsets.symmetric(horizontal: 10),
                                           child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
                                               CircleAvatar(
                                                 backgroundColor: Colors.grey,
@@ -117,27 +115,19 @@ class LoadedHome extends StatelessWidget {
                                                 ),
                                               ),
                                               Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 10),
+                                                padding: const EdgeInsets.only(left: 10),
                                                 child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     Row(
                                                       children: [
                                                         Text(
-                                                          tweets.value[index]
-                                                              .userName,
+                                                          tweets.value[index].userName,
                                                           style: TextStyle(
                                                             color: Colors.black,
-                                                            fontFamily:
-                                                                Constants
-                                                                    .fontFamily,
-                                                            fontWeight:
-                                                                Constants
-                                                                    .boldFont,
+                                                            fontFamily: Constants.fontFamily,
+                                                            fontWeight: Constants.boldFont,
                                                             fontSize: 14,
                                                           ),
                                                         ),
@@ -145,30 +135,22 @@ class LoadedHome extends StatelessWidget {
                                                           width: 10,
                                                         ),
                                                         Text(
-                                                          tweets.value[index]
-                                                              .handle,
+                                                          tweets.value[index].handle,
                                                           style: TextStyle(
-                                                              color: Colors
-                                                                  .grey[600],
-                                                              fontFamily:
-                                                                  Constants
-                                                                      .fontFamily,
-                                                              fontWeight:
-                                                                  Constants
-                                                                      .mediumFont,
-                                                              fontSize: 10),
+                                                            color: Colors.grey[600],
+                                                            fontFamily: Constants.fontFamily,
+                                                            fontWeight: Constants.mediumFont,
+                                                            fontSize: 10,
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
                                                     Text(
-                                                      tweets
-                                                          .value[index].content,
+                                                      tweets.value[index].content,
                                                       style: TextStyle(
                                                         color: Colors.black,
-                                                        fontFamily: Constants
-                                                            .fontFamily,
-                                                        fontWeight: Constants
-                                                            .regularFont,
+                                                        fontFamily: Constants.fontFamily,
+                                                        fontWeight: Constants.regularFont,
                                                         fontSize: 15,
                                                       ),
                                                     ),
@@ -178,7 +160,9 @@ class LoadedHome extends StatelessWidget {
                                             ],
                                           ),
                                         ),
-                                        SizedBox(height: 10,),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:page_transition/page_transition.dart';
+import 'package:twitter_clone/app/presentation/screens/home_screen/components/tweet_screen.dart';
 import '../../../../../core/utils/constants.dart';
 
 class NavBar extends StatelessWidget {
@@ -34,7 +35,9 @@ class NavBar extends StatelessWidget {
             ),
           ),
           FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushReplacement(context, PageTransition(child: TweetScreen(), type: PageTransitionType.bottomToTop,curve: Curves.easeIn));
+            },
             elevation: 20,
             child: SvgPicture.asset(
               Constants.tweet,

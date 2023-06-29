@@ -10,7 +10,7 @@ class FeedRepository extends BaseFeedRepository{
   FeedRepository({required this.baseFeedDataSource});
 
   @override
-  Future<List<Tweet>> getFeed() async{
+  Future<List<TweetObject>> getFeed() async{
     return await baseFeedDataSource.getFeed();
   }
 

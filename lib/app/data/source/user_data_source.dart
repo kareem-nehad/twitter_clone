@@ -19,6 +19,7 @@ class UserRemoteDataSource extends BaseUserRemoteDataSource {
         .then((value) {
       Map<String, dynamic>? data = value.data();
       userName.value = data!['username'];
+      UserPreferences.setUserName(userName.value);
     });
 
     return User(username: userName.value);

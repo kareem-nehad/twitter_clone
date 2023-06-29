@@ -25,6 +25,5 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(state.copyWith(status: HomeStatus.loading));
     final result = await getFeedUseCase.execute();
     emit(state.copyWith(tweets: result, status: HomeStatus.success));
-
   }
 }

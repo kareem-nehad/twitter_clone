@@ -40,4 +40,12 @@ class UserPreferences {
   static Future clearUserPassword () async {
     await _preferences?.remove('password');
   }
+
+  static Future setUserName (String? username) async {
+    await _preferences?.setString('username', username!);
+  }
+
+  static String? getUserName() {
+    return _preferences?.getString('username');
+  }
 }

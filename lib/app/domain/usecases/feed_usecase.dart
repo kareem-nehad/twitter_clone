@@ -7,7 +7,7 @@ class GetFeed {
 
   GetFeed({required this.baseFeedRepository});
 
-  Future<List<Tweet>> execute() async {
+  Future<List<TweetObject>> execute() async {
     return await baseFeedRepository.getFeed();
 }
 }
