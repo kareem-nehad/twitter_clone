@@ -17,7 +17,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Future<void> _login(Login event, Emitter<LoginState> emit) async {
-    emit(state.copyWith(status: LoginStatus.awaiting));
+    emit(state.copyWith(status: LoginStatus.loading));
     final LoginRequestStatus response;
     response = await loginUsecase.execute(event.email, event.password);
     switch (response.code) {
