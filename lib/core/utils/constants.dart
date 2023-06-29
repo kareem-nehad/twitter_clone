@@ -8,6 +8,8 @@ class Constants {
   static const Color greyColor = Color(0xFFAEB2BC);
   static const Color errorColor = Color(0xFFFF5252);
   static const Color successColor = Color(0xFF4CAF50);
+  static const Color authBackgroundColor = Color(0xFF262C4C);
+  static const Color authForegroundColor = Color(0xFF1D2847);
 
   // Icons paths
   static const String twitter = 'assets/icons/twitter.svg';
@@ -20,6 +22,9 @@ class Constants {
   static const String like = 'assets/icons/like.svg';
   static const String share  = 'assets/icons/share.svg';
 
+  // Images Paths
+  static const String noInternet = 'assets/images/no_internet.svg';
+
   // Fonts
   static const fontFamily = 'Rubik';
   static const lightFont = FontWeight.w300;
@@ -27,4 +32,7 @@ class Constants {
   static const mediumFont = FontWeight.w500;
   static const boldFont = FontWeight.w600;
   static const extraBoldFont = FontWeight.w700;
+
+  // Loading Progress
+  static const String loading = 'assets/progress/loading.json';
 }

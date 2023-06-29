@@ -47,6 +47,8 @@ dependencies:
   cloud_firestore: ^4.7.1
   shared_preferences: ^2.1.1
   shimmer: ^3.0.0
+  lottie: ^2.4.0
+  flutter_offline: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +80,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/progress/
 
 
   fonts:

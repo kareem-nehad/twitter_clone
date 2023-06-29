@@ -19,35 +19,32 @@ class IntroductionScreen extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.topCenter,
-              child: Hero(
-                tag: 'Intro Picture',
-                child: SvgPicture.asset(
-                  Constants.twitter,
-                  height: 1000.0.sp,
-                  width: 1000.0.sp,
-                ),
+              child: SvgPicture.asset(
+                Constants.twitter,
+                height: 1000.0.sp,
+                width: 1000.0.sp,
               ),
             ),
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: 30.sp,
             ),
-            const Text(
+            Text(
               'Welcome!',
               style: TextStyle(
-                fontSize: 30,
+                fontSize: 100.sp,
                 fontFamily: Constants.fontFamily,
                 fontWeight: Constants.regularFont,
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 60.sp,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30),
+              padding: EdgeInsets.only(left: 90.sp, right: 90.sp),
               child: Text(
                 'See what\'s happening in the world right now.',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 50.sp,
                   fontFamily: Constants.fontFamily,
                   fontWeight: Constants.regularFont,
                   color: Constants.greyColor,
@@ -55,11 +52,11 @@ class IntroductionScreen extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 90.sp,
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context, PageTransition(child: CreateAccountScreen(), type: PageTransitionType.rightToLeftPop, childCurrent: this, curve: Curves.easeIn));
+                Navigator.push(context, PageTransition(child: CreateAccountScreen(), type: PageTransitionType.rightToLeftPop, childCurrent: this, curve: Curves.easeInExpo));
               },
               child: Text('Create account'),
               style: ElevatedButton.styleFrom(
@@ -72,7 +69,7 @@ class IntroductionScreen extends StatelessWidget {
             ),
             Spacer(),
             Padding(
-              padding: const EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(bottom: 70.sp),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -81,19 +78,19 @@ class IntroductionScreen extends StatelessWidget {
                     style: TextStyle(
                         fontFamily: Constants.fontFamily,
                         fontWeight: Constants.regularFont,
-                        fontSize: 13,
+                        fontSize: 35.sp,
                         color: Constants.greyColor),
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context, PageTransition(child: LogInScreen(), type: PageTransitionType.rightToLeftPop, childCurrent: this, curve: Curves.easeIn));
+                      Navigator.push(context, PageTransition(child: LogInScreen(), type: PageTransitionType.rightToLeftPop, childCurrent: this, curve: Curves.easeInExpo));
                     },
                     child: Text(
                       ' Log in',
                       style: TextStyle(
                         fontFamily: Constants.fontFamily,
                         fontWeight: Constants.regularFont,
-                        fontSize: 13,
+                        fontSize: 35.sp,
                         color: Constants.primaryColor,
                       ),
                     ),
