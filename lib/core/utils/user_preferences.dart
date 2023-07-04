@@ -48,4 +48,12 @@ class UserPreferences {
   static String? getUserName() {
     return _preferences?.getString('username');
   }
+
+  static Future setUserImage(String? userImage) async {
+    await _preferences?.setString('userImage', userImage!);
+  }
+
+  static String? getUserImage() {
+    return _preferences?.getString('userImage');
+  }
 }

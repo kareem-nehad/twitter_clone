@@ -11,4 +11,9 @@ class AuthenticationRepository extends BaseAuthenticationRepository {
   Future<AuthRequestStatus> createAccount(String email, String password,String username) async {
     return await baseAuthenticationDataSource.createAccount(email, password, username);
   }
+
+  @override
+  Future<AuthRequestStatus> createAccountWithImage(String email, String password, String username, String imageName) async {
+    return await baseAuthenticationDataSource.createAccountWithImage(email, password, username, imageName);
+  }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:twitter_clone/app/presentation/screens/create_account_screen/create_account.dart';
 import 'package:twitter_clone/app/presentation/screens/log_in_screen/log_in_screen.dart';
+import 'package:twitter_clone/app/presentation/screens/set_profile_picture_screen/set_profile_picture_screen.dart';
 import 'package:twitter_clone/core/utils/constants.dart';
 
 class IntroductionScreen extends StatelessWidget {

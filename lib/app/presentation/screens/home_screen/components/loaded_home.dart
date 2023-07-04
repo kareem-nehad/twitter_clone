@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:twitter_clone/app/data/source/feed_data_source.dart';
 import 'package:twitter_clone/app/presentation/screens/home_screen/components/side_nav.dart';
@@ -35,11 +36,13 @@ class LoadedHome extends StatelessWidget {
                             InkWell(
                               child: CircleAvatar(
                                 backgroundColor: Colors.white,
-                                radius: 30,
-                                child: Image.asset(
-                                  'assets/images/user_image.png',
-                                  height: 30,
-                                  width: 30,
+                                radius: 80.sp,
+                                child: ClipOval(
+                                  child: Image.network(
+                                    UserPreferences.getUserImage()!,
+                                    height: 160.sp,
+                                    width: 160.sp,
+                                  ),
                                 ),
                               ),
                               onTap: () {

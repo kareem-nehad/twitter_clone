@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_offline/flutter_offline.dart';
@@ -5,8 +6,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:twitter_clone/app/domain/entities/auth_arguments.dart';
 import 'package:twitter_clone/app/presentation/controller/create_account_bloc/create_account_bloc.dart';
 import 'package:twitter_clone/app/presentation/screens/introduction_screen/introduction_screen.dart';
+import 'package:twitter_clone/app/presentation/screens/set_profile_picture_screen/set_profile_picture_screen.dart';
 import 'package:twitter_clone/core/utils/constants.dart';
 
 import '../../../../core/services/service_locator.dart';
@@ -74,15 +77,15 @@ class CreateAccountScreen extends StatelessWidget {
                         ),
                       ));
                     });
-                    Navigator.maybePop(
-                      context,
-                      PageTransition(
-                        child: IntroductionScreen(),
-                        type: PageTransitionType.leftToRightPop,
-                        childCurrent: this,
-                        curve: Curves.easeInExpo,
-                      ),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   PageTransition(
+                    //     child: SetProfilePictureScreen(),
+                    //     type: PageTransitionType.rightToLeftPop,
+                    //     childCurrent: this,
+                    //     curve: Curves.easeInExpo,
+                    //   ),
+                    // );
                     break;
                   case AuthStatus.failure:
                     Navigator.pop(context);
@@ -243,7 +246,19 @@ class CreateAccountScreen extends StatelessWidget {
                                       ));
                                     } else {
                                       if (charLimit.value && containsNumbers.value && containsUppercase.value) {
-                                        context.read<CreateAccountBloc>().add(CreateAccount(email: email, password: password, username: username));
+                                        // context.read<CreateAccountBloc>().add(CreateAccount(email: email, password: password, username: username));
+                                        Navigator.push(
+                                          context,
+                                          PageTransition(
+                                            child: SetProfilePictureScreen(),
+                                            type: PageTransitionType.rightToLeftPop,
+                                            childCurrent: this,
+                                            curve: Curves.easeInExpo,
+                                            settings: RouteSettings(
+                                              arguments: AuthArguments(email: email, password: password, username: username),
+                                            ),
+                                          ),
+                                        );
                                       } else {
                                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                           backgroundColor: Colors.redAccent,

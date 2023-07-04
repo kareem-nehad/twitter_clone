@@ -9,4 +9,7 @@ class CreateAccountUsecase {
   Future<AuthRequestStatus> execute(String email, String password, String username) async {
     return await baseAuthenticationRepository.createAccount(email, password, username);
   }
+  Future<AuthRequestStatus> executeWithImage(String email, String password, String username, String imageName) async {
+    return await baseAuthenticationRepository.createAccountWithImage(email, password, username, imageName);
+  }
 }

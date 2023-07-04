@@ -15,3 +15,12 @@ class CreateAccount extends CreateAccountEvent {
 
   const CreateAccount({required this.email, required this.password, required this.username});
 }
+
+class CreateAccountWithImage extends CreateAccountEvent {
+  final String email;
+  final String password;
+  final String username;
+  final String imageName;
+
+  const CreateAccountWithImage({required this.email, required this.password, required this.username, required this.imageName});
+}
