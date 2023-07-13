@@ -46,24 +46,33 @@ class TweetScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
                   child: Row(
                     children: [
-                      Text(
-                        'Cancel',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: Constants.fontFamily,
-                          fontWeight: Constants.regularFont,
-                          fontSize: 16,
+                      InkWell(
+                        child: Text(
+                          'Cancel',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: Constants.fontFamily,
+                            fontWeight: Constants.regularFont,
+                            fontSize: 16,
+                          ),
                         ),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
                       ),
                       Spacer(),
                       ElevatedButton(
                         onPressed: () async {
-                          context.read<TweetBloc>().add(Tweet(
+                          context.read<TweetBloc>().add(
+                                Tweet(
                                   tweet: TweetObject(
-                                UserPreferences.getUserName()!,
-                                UserPreferences.getUserUID()!,
-                                tweetContent.value,
-                              )));
+                                    UserPreferences.getUserName()!,
+                                    UserPreferences.getUserUID()!,
+                                    tweetContent.value,
+                                    UserPreferences.getUserImage()!,
+                                  ),
+                                ),
+                              );
                         },
                         child: Text(
                           'Tweet',
@@ -100,27 +109,26 @@ class TweetScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Scrollbar(
-                    radius: Radius.circular(50),
-                    thickness: 7,
-                    thumbVisibility: true,
-                    controller: ScrollController(),
-                    child: TextFormField(
-                      controller: TextEditingController(),
-                      keyboardType: TextInputType.multiline,
-                      scrollPhysics: BouncingScrollPhysics(),
-                      autofocus: true,
-                      onChanged: (value) {
-                        charCount.value = value.length;
-                        tweetContent.value = value;
-                      },
-                      maxLines: 30,
-                      decoration: InputDecoration(
-                        hintText: 'What\'s happening?',
-                        hintStyle: TextStyle(fontFamily: Constants.fontFamily),
-                        border: InputBorder.none,
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Scrollbar(
+                      controller: ScrollController(),
+                      child: TextFormField(
+                        controller: TextEditingController(),
+                        keyboardType: TextInputType.multiline,
+                        scrollPhysics: BouncingScrollPhysics(),
+                        autofocus: true,
+                        onChanged: (value) {
+                          charCount.value = value.length;
+                          tweetContent.value = value;
+                        },
+                        maxLines: 30,
+                        decoration: InputDecoration(
+                          hintText: 'What\'s happening?',
+                          hintStyle: TextStyle(fontFamily: Constants.fontFamily),
+                          border: InputBorder.none,
+                        ),
                       ),
                     ),
                   ),

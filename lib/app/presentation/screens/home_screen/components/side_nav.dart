@@ -30,8 +30,11 @@ class _SideNavState extends State<SideNav> {
             ),
           ),
           onTap: () async {
+            UserPreferences.clearUID();
             UserPreferences.clearUserEmail();
             UserPreferences.clearUserPassword();
+            UserPreferences.clearUserName();
+            UserPreferences.clearUserImage();
             await FirebaseAuth.instance.signOut();
             Navigator.pushReplacement(context, PageTransition(child: IntroductionScreen(), type: PageTransitionType.leftToRight, curve: Curves.easeIn));
 

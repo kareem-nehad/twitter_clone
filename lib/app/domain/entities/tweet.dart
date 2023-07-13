@@ -4,9 +4,10 @@ class TweetObject extends Equatable {
   final String userName;
   final String handle;
   final String content;
+  final String profilePicture;
 
-  TweetObject(this.userName, this.handle, this.content);
+  TweetObject(this.userName, this.handle, this.content, this.profilePicture);
 
   @override
-  List<Object> get props => [userName, handle, content];
+  List<Object> get props => [userName, handle, content, profilePicture];
 }

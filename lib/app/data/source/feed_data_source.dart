@@ -24,6 +24,7 @@ class FeedDataSource extends BaseFeedDataSource {
             data.data()['username'],
             '@' + data.data()['uid'].toString().substring(0, 8),
             data.data()['content'],
+            UserPreferences.getUserImage()!
           ));
         }
       }

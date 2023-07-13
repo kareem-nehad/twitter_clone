@@ -36,7 +36,7 @@ class NavBar extends StatelessWidget {
           ),
           FloatingActionButton(
             onPressed: () {
-              Navigator.pushReplacement(context, PageTransition(child: TweetScreen(), type: PageTransitionType.bottomToTop,curve: Curves.easeIn));
+              Navigator.push(context, PageTransition(child: TweetScreen(), type: PageTransitionType.bottomToTop,curve: Curves.easeIn));
             },
             elevation: 20,
             child: SvgPicture.asset(

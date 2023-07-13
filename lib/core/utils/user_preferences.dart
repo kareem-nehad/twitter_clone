@@ -17,6 +17,10 @@ class UserPreferences {
     return _preferences?.getString('uid');
   }
 
+  static Future clearUID () async {
+    await _preferences?.remove('uid');
+  }
+
   static Future setUserEmail (String? email) async {
     await _preferences?.setString('email', email!);
   }
@@ -49,11 +53,19 @@ class UserPreferences {
     return _preferences?.getString('username');
   }
 
+  static Future clearUserName () async {
+    await _preferences?.remove('username');
+  }
+
   static Future setUserImage(String? userImage) async {
     await _preferences?.setString('userImage', userImage!);
   }
 
   static String? getUserImage() {
     return _preferences?.getString('userImage');
+  }
+
+  static Future clearUserImage () async {
+    await _preferences?.remove('userImage');
   }
 }

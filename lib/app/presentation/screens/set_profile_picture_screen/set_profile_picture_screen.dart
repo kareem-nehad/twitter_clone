@@ -43,7 +43,7 @@ class SetProfilePictureScreen extends StatelessWidget {
               });
               break;
             case AuthStatus.failure:
-              print(state.message);
+              print('FAILURE');
               break;
             case AuthStatus.loading:
               // TODO: Handle this case.
