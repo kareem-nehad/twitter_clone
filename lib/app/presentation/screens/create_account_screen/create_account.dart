@@ -1,14 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:twitter_clone/app/domain/entities/auth_arguments.dart';
 import 'package:twitter_clone/app/presentation/controller/create_account_bloc/create_account_bloc.dart';
-import 'package:twitter_clone/app/presentation/screens/introduction_screen/introduction_screen.dart';
+import 'package:twitter_clone/app/presentation/screens/create_account_screen/components/components.dart';
 import 'package:twitter_clone/app/presentation/screens/set_profile_picture_screen/set_profile_picture_screen.dart';
 import 'package:twitter_clone/core/utils/constants.dart';
 
@@ -42,73 +39,27 @@ class CreateAccountScreen extends StatelessWidget {
                       showDialog(
                         context: context,
                         builder: (context) {
-                          return Center(
-                            child: Lottie.asset(
-                              Constants.loading,
-                              width: 500.sp,
-                              height: 500.sp,
-                              fit: BoxFit.fill,
-                            ),
-                          );
+                          return CreateAccountScreenComponents.LoadingIndicator();
                         },
                       );
                     });
                     break;
                   case AuthStatus.success:
                     Navigator.pop(context);
-                    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        backgroundColor: Constants.successColor,
-                        behavior: SnackBarBehavior.floating,
-                        showCloseIcon: true,
-                        closeIconColor: Constants.whiteColor,
-                        margin: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).size.height * 0.8,
-                          left: 20,
-                          right: 20,
-                        ),
-                        content: Container(
-                          child: Text(
-                            'Account Created Successfully',
-                            style: TextStyle(
-                              fontFamily: Constants.fontFamily,
-                            ),
-                          ),
-                        ),
-                      ));
-                    });
-                    // Navigator.push(
-                    //   context,
-                    //   PageTransition(
-                    //     child: SetProfilePictureScreen(),
-                    //     type: PageTransitionType.rightToLeftPop,
-                    //     childCurrent: this,
-                    //     curve: Curves.easeInExpo,
-                    //   ),
-                    // );
+                    WidgetsBinding.instance.addPostFrameCallback(
+                      (timeStamp) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          CreateAccountScreenComponents.SuccessSnackbar(context),
+                        );
+                      },
+                    );
                     break;
                   case AuthStatus.failure:
                     Navigator.pop(context);
                     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                      ScaffoldMessenger.maybeOf(context)?.showSnackBar(SnackBar(
-                        backgroundColor: Constants.errorColor,
-                        behavior: SnackBarBehavior.floating,
-                        showCloseIcon: true,
-                        closeIconColor: Constants.whiteColor,
-                        margin: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).size.height * 0.8,
-                          left: 20,
-                          right: 20,
-                        ),
-                        content: Container(
-                          child: Text(
-                            state.message,
-                            style: TextStyle(
-                              fontFamily: Constants.fontFamily,
-                            ),
-                          ),
-                        ),
-                      ));
+                      ScaffoldMessenger.maybeOf(context)?.showSnackBar(
+                        CreateAccountScreenComponents.ErrorSnackbar(context, state),
+                      );
                     });
                     break;
                 }
@@ -120,10 +71,7 @@ class CreateAccountScreen extends StatelessWidget {
                       builder: (context, constraints) => Stack(
                         children: [
                           Positioned(
-                            child: SvgPicture.asset(
-                              Constants.twitter,
-                              colorFilter: ColorFilter.mode(Constants.authForegroundColor, BlendMode.srcIn),
-                            ),
+                            child: CreateAccountScreenComponents.AppLogo(),
                             right: constraints.maxWidth * 0.3,
                           ),
                           Align(
@@ -393,36 +341,12 @@ class CreateAccountScreen extends StatelessWidget {
                 builder: (context, constraints) => Stack(
                   children: [
                     Positioned(
-                      child: SvgPicture.asset(
-                        Constants.twitter,
-                        colorFilter: ColorFilter.mode(
-                          Constants.authForegroundColor,
-                          BlendMode.srcIn,
-                        ),
-                      ),
+                      child: CreateAccountScreenComponents.AppLogo(),
                       right: constraints.maxWidth * 0.3,
                     ),
                     Align(
                       alignment: Alignment.center,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Sorry for the inconvenience...',
-                            style: TextStyle(fontFamily: Constants.fontFamily, fontWeight: Constants.lightFont, fontSize: 50.sp, color: Constants.whiteColor),
-                          ),
-                          SvgPicture.asset(
-                            Constants.noInternet,
-                            height: 800.sp,
-                            width: 800.sp,
-                            fit: BoxFit.fill,
-                          ),
-                          Text(
-                            'Please turn on Wi-Fi or mobile data to continue.',
-                            style: TextStyle(fontFamily: Constants.fontFamily, fontWeight: Constants.lightFont, fontSize: 50.sp, color: Constants.whiteColor),
-                          ),
-                        ],
-                      ),
+                      child: CreateAccountScreenComponents.NoInternet(),
                     )
                   ],
                 ),
@@ -431,14 +355,7 @@ class CreateAccountScreen extends StatelessWidget {
           );
         }
       },
-      child: Center(
-        child: Lottie.asset(
-          Constants.loading,
-          height: 500.sp,
-          width: 500.sp,
-          fit: BoxFit.fill,
-        ),
-      ),
+      child: CreateAccountScreenComponents.LoadingIndicator(),
     );
   }
 }
