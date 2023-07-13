@@ -21,8 +21,7 @@ class LoadingHome extends StatelessWidget {
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(
-                            left: 20, right: 20, top: 20),
+                        padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
                         child: Row(
                           children: [
                             CircleAvatar(
@@ -50,7 +49,10 @@ class LoadingHome extends StatelessWidget {
                                     Container(
                                       height: 20,
                                       width: 100,
-                                      color: Colors.grey,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: Colors.grey,
+                                      ),
                                     ),
                                     SizedBox(
                                       height: 5,
@@ -58,7 +60,10 @@ class LoadingHome extends StatelessWidget {
                                     Container(
                                       height: 20,
                                       width: 100,
-                                      color: Colors.grey,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: Colors.grey,
+                                      ),
                                     )
                                   ],
                                 ),
@@ -100,7 +105,7 @@ class LoadingHome extends StatelessWidget {
 
   Widget LoadingTweet() {
     return Padding(
-      padding: const EdgeInsets.only(top: 20,left: 10),
+      padding: const EdgeInsets.only(top: 20, left: 10),
       child: Column(
         children: [
           Row(
@@ -119,7 +124,9 @@ class LoadingHome extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 10,),
+              SizedBox(
+                width: 10,
+              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -130,10 +137,15 @@ class LoadingHome extends StatelessWidget {
                     child: Container(
                       width: 100,
                       height: 20,
-                      color: Colors.grey,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.grey,
+                      ),
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Shimmer.fromColors(
                     enabled: true,
                     baseColor: Colors.grey,
@@ -141,10 +153,15 @@ class LoadingHome extends StatelessWidget {
                     child: Container(
                       width: 300,
                       height: 20,
-                      color: Colors.grey,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.grey,
+                      ),
                     ),
                   ),
-                  SizedBox(height: 5,),
+                  SizedBox(
+                    height: 5,
+                  ),
                   Shimmer.fromColors(
                     enabled: true,
                     baseColor: Colors.grey,
@@ -152,14 +169,19 @@ class LoadingHome extends StatelessWidget {
                     child: Container(
                       width: 300,
                       height: 20,
-                      color: Colors.grey,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.grey,
+                      ),
                     ),
                   )
                 ],
               )
             ],
           ),
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

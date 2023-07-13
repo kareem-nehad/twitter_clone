@@ -19,6 +19,7 @@ class TweetDataSource extends BaseTweetDataSource {
       'content': tweet.content,
       'uid': tweet.handle,
       'username': tweet.userName,
+      'image': UserPreferences.getUserImage()!
     });
     return TweetRequestStatus(status: 'Success', code: 0);
   }

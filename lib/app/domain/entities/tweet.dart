@@ -8,6 +8,7 @@ class TweetObject extends Equatable {
 
   TweetObject(this.userName, this.handle, this.content, this.profilePicture);
 
+
   @override
   List<Object> get props => [userName, handle, content, profilePicture];
 }

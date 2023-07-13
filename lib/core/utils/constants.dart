@@ -21,6 +21,7 @@ class Constants {
   static const String retweet = 'assets/icons/retweet.svg';
   static const String like = 'assets/icons/like.svg';
   static const String share  = 'assets/icons/share.svg';
+  static const String appIcon = 'assets/icons/splash_icon.png';
 
   // Images Paths
   static const String noInternet = 'assets/images/no_internet.svg';

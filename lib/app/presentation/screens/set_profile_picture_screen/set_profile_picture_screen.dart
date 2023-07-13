@@ -139,7 +139,7 @@ class SetProfilePictureScreen extends StatelessWidget {
                                             height: 300.sp,
                                             width: 300.sp,
                                           )
-                                              : Image.file(File(imagePath.value)),
+                                              : Image.file(File(imagePath.value), fit: BoxFit.fill,),
                                         ),
                                       );
                                     },

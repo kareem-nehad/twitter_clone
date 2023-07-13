@@ -17,6 +17,7 @@ class NavBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           FloatingActionButton(
+            heroTag: null,
             onPressed: () {},
             elevation: 20,
             child: SvgPicture.asset(
@@ -26,6 +27,7 @@ class NavBar extends StatelessWidget {
             ),
           ),
           FloatingActionButton.large(
+            heroTag: null,
             onPressed: () {},
             elevation: 20,
             child: SvgPicture.asset(
@@ -35,8 +37,9 @@ class NavBar extends StatelessWidget {
             ),
           ),
           FloatingActionButton(
+            heroTag: null,
             onPressed: () {
-              Navigator.push(context, PageTransition(child: TweetScreen(), type: PageTransitionType.bottomToTop,curve: Curves.easeIn));
+              Navigator.push(context, PageTransition(child: TweetScreen(), type: PageTransitionType.size,childCurrent: this, curve: Curves.easeInOutExpo,alignment: Alignment.bottomCenter));
             },
             elevation: 20,
             child: SvgPicture.asset(

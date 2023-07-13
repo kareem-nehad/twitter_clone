@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:twitter_clone/app/data/source/feed_data_source.dart';
 import 'package:twitter_clone/app/presentation/screens/home_screen/components/side_nav.dart';
+import 'package:twitter_clone/app/presentation/screens/tweet_details_screen/tweet_details_screen.dart';
 
 import '../../../../../core/utils/constants.dart';
 import '../../../../../core/utils/user_preferences.dart';
@@ -35,10 +37,12 @@ class LoadedHome extends StatelessWidget {
                             child: CircleAvatar(
                               backgroundColor: Colors.white,
                               radius: 80.sp,
-                              child: Image.network(
-                                UserPreferences.getUserImage()!,
-                                height: 100.sp,
-                                width: 100.sp,
+                              child: ClipOval(
+                                child: Image.network(
+                                  UserPreferences.getUserImage()!,
+                                  height: 160.sp,
+                                  width: 160.sp,
+                                ),
                               ),
                             ),
                             onTap: () {
@@ -80,81 +84,100 @@ class LoadedHome extends StatelessWidget {
                     ),
                     tweets.value.isNotEmpty
                         ? Expanded(
-                          child: Padding(
+                            child: Padding(
                               padding: const EdgeInsets.only(top: 20),
                               child: Container(
                                 color: Colors.white,
                                 child: Padding(
                                   padding: const EdgeInsets.only(top: 20),
-                                  child: ListView.builder(
-                                      shrinkWrap: true,
-                                      physics: BouncingScrollPhysics(),
-                                      itemCount: tweets.value.length,
-                                      itemBuilder: (context, index) {
-                                        return Container(
-                                          child: Column(
+                                  child: Column(
+                                    children: [
+                                      ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: BouncingScrollPhysics(),
+                                        itemCount: tweets.value.length,
+                                        itemBuilder: (context, index) {
+                                          return Column(
+                                            mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              Padding(
-                                                padding: const EdgeInsets.symmetric(horizontal: 10),
-                                                child: Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  children: [
-                                                    ClipOval(
-                                                      child: CircleAvatar(
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    PageTransition(
+                                                      child: TweetDetailsScreen(),
+                                                      type: PageTransitionType.rightToLeftWithFade,
+                                                      childCurrent: this,
+                                                      curve: Curves.easeInExpo,
+                                                    ),
+                                                  );
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                                  child: Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      CircleAvatar(
                                                         backgroundColor: Colors.grey,
-                                                        radius: 25,
-                                                        child: Image.network(
-                                                          tweets.value[index].profilePicture,
-                                                          color: Colors.white,
-                                                          height: 30,
-                                                          width: 30,
+                                                        radius: 68.sp,
+                                                        child: ClipOval(
+                                                          child: Image.network(
+                                                            tweets.value[index].profilePicture,
+                                                            height: 135.sp,
+                                                            width: 135.sp,
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(left: 10),
-                                                      child: Column(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          Row(
-                                                            children: [
-                                                              Text(
-                                                                tweets.value[index].userName,
+                                                      Padding(
+                                                        padding: const EdgeInsets.only(left: 10),
+                                                        child: Column(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            Row(
+                                                              children: [
+                                                                Text(
+                                                                  tweets.value[index].userName,
+                                                                  style: TextStyle(
+                                                                    color: Colors.black,
+                                                                    fontFamily: Constants.fontFamily,
+                                                                    fontWeight: Constants.boldFont,
+                                                                    fontSize: 14,
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 10,
+                                                                ),
+                                                                Text(
+                                                                  tweets.value[index].handle,
+                                                                  style: TextStyle(
+                                                                    color: Colors.grey[600],
+                                                                    fontFamily: Constants.fontFamily,
+                                                                    fontWeight: Constants.mediumFont,
+                                                                    fontSize: 10,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            Container(
+                                                              width: 860.sp,
+                                                              child: Text(
+                                                                tweets.value[index].content,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
                                                                   fontFamily: Constants.fontFamily,
-                                                                  fontWeight: Constants.boldFont,
-                                                                  fontSize: 14,
+                                                                  fontWeight: Constants.regularFont,
+                                                                  fontSize: 15,
                                                                 ),
+                                                                textAlign: TextAlign.start,
+                                                                softWrap: true,
                                                               ),
-                                                              SizedBox(
-                                                                width: 10,
-                                                              ),
-                                                              Text(
-                                                                tweets.value[index].handle,
-                                                                style: TextStyle(
-                                                                  color: Colors.grey[600],
-                                                                  fontFamily: Constants.fontFamily,
-                                                                  fontWeight: Constants.mediumFont,
-                                                                  fontSize: 10,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          Text(
-                                                            tweets.value[index].content,
-                                                            style: TextStyle(
-                                                              color: Colors.black,
-                                                              fontFamily: Constants.fontFamily,
-                                                              fontWeight: Constants.regularFont,
-                                                              fontSize: 15,
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    )
-                                                  ],
+                                                          ],
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                               SizedBox(
@@ -163,10 +186,16 @@ class LoadedHome extends StatelessWidget {
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                 children: [
-                                                  SvgPicture.asset(
-                                                    Constants.reply,
-                                                    height: 19,
-                                                    width: 19,
+                                                  InkWell(
+                                                    onTap: () {
+                                                      Navigator.push(context,
+                                                          PageTransition(child: TweetDetailsScreen(), type: PageTransitionType.rightToLeftWithFade, childCurrent: this, curve: Curves.easeInExpo));
+                                                    },
+                                                    child: SvgPicture.asset(
+                                                      Constants.reply,
+                                                      height: 19,
+                                                      width: 19,
+                                                    ),
                                                   ),
                                                   SvgPicture.asset(
                                                     Constants.retweet,
@@ -191,28 +220,34 @@ class LoadedHome extends StatelessWidget {
                                                 endIndent: 50,
                                               ),
                                             ],
-                                          ),
-                                        );
-                                      }),
+                                          );
+                                        },
+                                      ),
+                                      SizedBox(height: 20.sp),
+                                      Image.asset(
+                                        Constants.appIcon,
+                                        height: 50.sp,
+                                        width: 50.sp,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                        )
+                          )
                         : Text(
                             'No data to show at the moment.\nTry again later.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Constants.whiteColor,
-                        fontFamily: Constants.fontFamily,
-                        fontWeight: Constants.lightFont,
-                        fontSize: 45.sp
-                      ),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Constants.whiteColor, fontFamily: Constants.fontFamily, fontWeight: Constants.lightFont, fontSize: 45.sp),
                           ),
                   ],
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: NavBar(),
+                Hero(
+                  tag: 'bottomNav',
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: NavBar(),
+                  ),
                 )
               ],
             );
