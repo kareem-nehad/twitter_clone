@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 
 import '../../../domain/entities/tweet.dart';
-import '../../../domain/entities/user.dart';
 
 enum HomeStatus { success, failure, loading }
 

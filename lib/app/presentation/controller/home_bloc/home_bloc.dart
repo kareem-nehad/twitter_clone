@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import '../../../domain/usecases/feed_usecase.dart';
-import '../../../domain/usecases/get_user_date_usecase.dart';
+import '../../../domain/usecases/get_user_data_usecase.dart';
 import 'home_event.dart';
 import 'home_state.dart';
 

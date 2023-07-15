@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:twitter_clone/app/domain/entities/tweet.dart';
 import 'package:twitter_clone/app/presentation/controller/tweet_bloc/tweet_bloc.dart';
@@ -68,8 +69,10 @@ class TweetScreen extends StatelessWidget {
                                   tweet: TweetObject(
                                     UserPreferences.getUserName()!,
                                     UserPreferences.getUserUID()!,
+                                    UserPreferences.getUserUID()!,
                                     tweetContent.value,
                                     UserPreferences.getUserImage()!,
+                                    getDate()
                                   ),
                                 ),
                               );
@@ -140,4 +143,11 @@ class TweetScreen extends StatelessWidget {
       }),
     );
   }
+
+  String getDate() {
+    var now = new DateTime.now();
+    var formatter = new DateFormat('yyyy-MM-dd');
+    return formatter.format(now);
+  }
+
 }

@@ -19,13 +19,14 @@ class FeedDataSource extends BaseFeedDataSource {
         .get()
         .then((value) async {
       for (var data in value.docs) {
-        var imageData;
         if (data.data().isNotEmpty) {
           tweets.value.add(TweetObject(
             data.data()['username'],
+            data.data()['uid'],
             '@' + data.data()['uid'].toString().substring(0, 8),
             data.data()['content'],
-            data.data()['image']
+            data.data()['image'],
+            data.data()['date']
           ));
         }
       }

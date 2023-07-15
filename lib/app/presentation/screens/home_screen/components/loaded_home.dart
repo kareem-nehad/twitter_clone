@@ -105,7 +105,16 @@ class LoadedHome extends StatelessWidget {
                                                   Navigator.push(
                                                     context,
                                                     PageTransition(
-                                                      child: TweetDetailsScreen(),
+                                                      child: TweetDetailsScreen(
+                                                        TweetObject(
+                                                          tweets.value[index].userName,
+                                                          tweets.value[index].uID,
+                                                          tweets.value[index].handle,
+                                                          tweets.value[index].content,
+                                                          tweets.value[index].profilePicture,
+                                                          tweets.value[index].date,
+                                                        ),
+                                                      ),
                                                       type: PageTransitionType.rightToLeftWithFade,
                                                       childCurrent: this,
                                                       curve: Curves.easeInExpo,
@@ -188,8 +197,22 @@ class LoadedHome extends StatelessWidget {
                                                 children: [
                                                   InkWell(
                                                     onTap: () {
-                                                      Navigator.push(context,
-                                                          PageTransition(child: TweetDetailsScreen(), type: PageTransitionType.rightToLeftWithFade, childCurrent: this, curve: Curves.easeInExpo));
+                                                      Navigator.push(
+                                                          context,
+                                                          PageTransition(
+                                                              child: TweetDetailsScreen(
+                                                                TweetObject(
+                                                                  tweets.value[index].userName,
+                                                                  tweets.value[index].uID,
+                                                                  tweets.value[index].handle,
+                                                                  tweets.value[index].content,
+                                                                  tweets.value[index].profilePicture,
+                                                                  tweets.value[index].date,
+                                                                ),
+                                                              ),
+                                                              type: PageTransitionType.rightToLeftWithFade,
+                                                              childCurrent: this,
+                                                              curve: Curves.easeInExpo));
                                                     },
                                                     child: SvgPicture.asset(
                                                       Constants.reply,
