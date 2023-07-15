@@ -10,7 +10,7 @@
 
 ## *Features*
 - [x] Tweeting: Users can compose and share tweets with a limit of 280 characters, enabling them to express their thoughts, opinions, and ideas concisely.
-
+ 
 - [x] Timeline:  Chirper provides a personalized timeline that displays a user's tweets, as well as tweets from accounts they follow. Users can scroll through the timeline to stay updated with the latest posts from their network.
 
 - [x] Profile: Each user has their own profile with a bio, profile picture. Users can view others' profiles to learn more about them and their tweets.
@@ -44,9 +44,9 @@
 *At its core, BLoC consists of three main components:*
 
 1.  **Business Logic**: *This component represents the core logic and functionality of an application. It encapsulates the operations, computations, and transformations required to process data and perform tasks.*
-
+    
 2.  **Events**: *Events in BLoC represent user interactions, external triggers, or any other inputs that initiate changes in the application state. For example, a button press, network response, or a user input field update can be events.*
-
+    
 3.  **States**: *States represent the current state of the application, reflecting changes triggered by events. They can include information such as data loaded, an error occurred, or a loading state. Each state is immutable and represents a snapshot of the application at a specific point in time.*
 
 
