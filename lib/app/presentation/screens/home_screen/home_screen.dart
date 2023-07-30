@@ -13,8 +13,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     ValueNotifier<String> username = ValueNotifier('');
     ValueNotifier<List<TweetObject>> tweets = ValueNotifier([]);
+
     return BlocProvider(
       create: (BuildContext context) => sl<HomeBloc>()..add(GetUserDataEvent())..add(GetFeedEvent()),
       child: BlocBuilder<HomeBloc, HomeState>(

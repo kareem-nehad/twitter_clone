@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:twitter_clone/app/domain/entities/tweet.dart';
 import 'package:twitter_clone/app/presentation/controller/profile_bloc/profile_bloc.dart';
+import 'package:twitter_clone/app/presentation/screens/profile_screen/components/loaded_profile_screen.dart';
 
 import '../../../../core/services/service_locator.dart';
 import '../../../../core/utils/constants.dart';
@@ -15,69 +16,43 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ValueNotifier<String> userImage = ValueNotifier('');
+    final ValueNotifier<String> userName = ValueNotifier('');
+    final ValueNotifier<String> uid = ValueNotifier('');
+    final ValueNotifier<List<TweetObject>> tweets = ValueNotifier([]);
+
     return BlocProvider(
       create: (BuildContext context) => sl<ProfileBloc>()..add(GetFullUserDataEvent(uID)),
       child: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
           switch (state.status) {
             case ProfileStatus.success:
-              print('SUCCESS');
+
+              userImage.value = state.userImage;
+              userName.value = state.username;
+              uid.value = state.uid;
+              tweets.value = state.tweets;
+              return LoadedProfileScreen(userImage: userImage, username: userName, uid: uid,tweets: tweets,);
               break;
             case ProfileStatus.failure:
               // TODO: Handle this case.
               break;
             case ProfileStatus.loading:
-              // TODO: Handle this case.
-              break;
-          }
-          return SafeArea(
-            child: Scaffold(
-              backgroundColor: Color(0xFF262C4C),
-              body: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(height: 80.sp),
-                  CircleAvatar(
-                    backgroundColor: Constants.whiteColor,
-                    radius: 100.sp,
-                    child: ClipOval(
-                      child: Image.network(
-                        state.userImage,
-                        height: 200.sp,
-                        width: 200.sp,
-                        filterQuality: FilterQuality.high,
-                      ),
+              return SafeArea(
+                child: Scaffold(
+                  backgroundColor: Color(0xFF262C4C),
+                  body: Center(
+                    child: Lottie.asset(
+                      Constants.loading,
+                      height: 500.sp,
+                      width: 500.sp,
+                      fit: BoxFit.fill,
                     ),
                   ),
-                  SizedBox(height: 30.sp),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        state.username,
-                        style: TextStyle(
-                          color: Constants.whiteColor,
-                          fontFamily: Constants.fontFamily,
-                          fontWeight: Constants.mediumFont,
-                          fontSize: 50.sp,
-                        ),
-                      ),
-                      Text(
-                        state.uid,
-                        style: TextStyle(
-                          color: Constants.whiteColor,
-                          fontFamily: Constants.fontFamily,
-                          fontWeight: Constants.regularFont,
-                          fontSize: 35.sp,
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          );
+                ),
+              );
+          }
+          return Container();
         },
       ),
     );

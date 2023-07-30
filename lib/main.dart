@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           title: 'Twitter Clone',
           theme: ThemeData(
             primarySwatch: Colors.blue,
-            textTheme: TextTheme(bodyMedium: TextStyle(fontSize: 30.sp))
+            textTheme: TextTheme(bodyMedium: TextStyle(fontSize: 30.sp)),
           ),
           debugShowCheckedModeBanner: false,
           home: child,

@@ -16,11 +16,12 @@ import '../../../../core/services/service_locator.dart';
 import '../../../../core/utils/constants.dart';
 
 class SetProfilePictureScreen extends StatelessWidget {
-  const SetProfilePictureScreen({super.key});
+  const SetProfilePictureScreen({super.key, required this.args});
+
+  final AuthArguments args;
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as AuthArguments;
     ValueNotifier<String> imageName = ValueNotifier('');
     ValueNotifier<String> imagePath = ValueNotifier('');
     return OfflineBuilder(

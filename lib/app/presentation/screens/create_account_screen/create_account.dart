@@ -198,13 +198,10 @@ class CreateAccountScreen extends StatelessWidget {
                                         Navigator.push(
                                           context,
                                           PageTransition(
-                                            child: SetProfilePictureScreen(),
+                                            child: SetProfilePictureScreen(args: AuthArguments(email: email, password: password, username: username)),
                                             type: PageTransitionType.rightToLeftPop,
                                             childCurrent: this,
                                             curve: Curves.easeInExpo,
-                                            settings: RouteSettings(
-                                              arguments: AuthArguments(email: email, password: password, username: username),
-                                            ),
                                           ),
                                         );
                                       } else {

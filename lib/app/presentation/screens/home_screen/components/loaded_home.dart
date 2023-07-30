@@ -168,6 +168,7 @@ class LoadedHome extends StatelessWidget {
                                                                 ),
                                                               ],
                                                             ),
+                                                            SizedBox(height: 3),
                                                             Container(
                                                               width: 860.sp,
                                                               child: Text(
