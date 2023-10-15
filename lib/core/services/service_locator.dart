@@ -2,18 +2,21 @@ import 'package:get_it/get_it.dart';
 import 'package:twitter_clone/app/data/repository/auth_repository.dart';
 import 'package:twitter_clone/app/data/repository/feed_repository.dart';
 import 'package:twitter_clone/app/data/repository/full_user_repository.dart';
+import 'package:twitter_clone/app/data/repository/like_repository.dart';
 import 'package:twitter_clone/app/data/repository/login_repository.dart';
 import 'package:twitter_clone/app/data/repository/tweet_repository.dart';
 import 'package:twitter_clone/app/data/repository/user_repository.dart';
 import 'package:twitter_clone/app/data/source/auth_remote_data_source.dart';
 import 'package:twitter_clone/app/data/source/feed_data_source.dart';
 import 'package:twitter_clone/app/data/source/full_user_data_source.dart';
+import 'package:twitter_clone/app/data/source/like_data_source.dart';
 import 'package:twitter_clone/app/data/source/login_remote_data_source.dart';
 import 'package:twitter_clone/app/data/source/tweet_data_source.dart';
 import 'package:twitter_clone/app/data/source/user_data_source.dart';
 import 'package:twitter_clone/app/domain/repository/base_authentication_repository.dart';
 import 'package:twitter_clone/app/domain/repository/base_feed_repository.dart';
 import 'package:twitter_clone/app/domain/repository/base_full_user_repository.dart';
+import 'package:twitter_clone/app/domain/repository/base_like_repository.dart';
 import 'package:twitter_clone/app/domain/repository/base_login_repository.dart';
 import 'package:twitter_clone/app/domain/repository/base_tweet_repository.dart';
 import 'package:twitter_clone/app/domain/repository/base_user_repository.dart';
@@ -21,10 +24,12 @@ import 'package:twitter_clone/app/domain/usecases/create_account_usecase.dart';
 import 'package:twitter_clone/app/domain/usecases/feed_usecase.dart';
 import 'package:twitter_clone/app/domain/usecases/full_user_data_usecase.dart';
 import 'package:twitter_clone/app/domain/usecases/get_user_data_usecase.dart';
+import 'package:twitter_clone/app/domain/usecases/like_usecase.dart';
 import 'package:twitter_clone/app/domain/usecases/login_usecase.dart';
 import 'package:twitter_clone/app/domain/usecases/tweet_usecase.dart';
 import 'package:twitter_clone/app/presentation/controller/create_account_bloc/create_account_bloc.dart';
 import 'package:twitter_clone/app/presentation/controller/home_bloc/home_bloc.dart';
+import 'package:twitter_clone/app/presentation/controller/like_bloc/like_bloc.dart';
 import 'package:twitter_clone/app/presentation/controller/login_bloc/login_bloc.dart';
 import 'package:twitter_clone/app/presentation/controller/profile_bloc/profile_bloc.dart';
 import 'package:twitter_clone/app/presentation/controller/tweet_bloc/tweet_bloc.dart';
@@ -78,6 +83,14 @@ class ServiceLocator {
     sl.registerLazySingleton(() => GetFullUserData(sl()));
 
     sl.registerFactory(() => ProfileBloc(sl()));
+
+    // Like Action
+    sl.registerLazySingleton<BaseLikeDataSource>(() => LikeDataSource());
+    sl.registerLazySingleton<BaseLikeRepository>(() => LikeRepository(baseLikeDataSource: sl()));
+
+    sl.registerLazySingleton(() => LikeUsecase(sl()));
+
+    sl.registerFactory(() => LikeBloc(sl()));
 
   }
 }

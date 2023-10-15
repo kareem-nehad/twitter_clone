@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:material_segmented_control/material_segmented_control.dart';
+import 'package:twitter_clone/app/presentation/screens/profile_screen/components/likes_segment.dart';
 import 'package:twitter_clone/app/presentation/screens/profile_screen/components/retweets_segment.dart';
 import 'package:twitter_clone/app/presentation/screens/profile_screen/components/tweets_segment.dart';
 
 import '../../../../../core/utils/constants.dart';
 import '../../../../domain/entities/tweet.dart';
+import '../../../../domain/usecases/like_usecase.dart';
 
 class LoadedProfileScreen extends StatelessWidget {
   const LoadedProfileScreen({super.key, required this.userImage, required this.username, required this.uid, required this.tweets});
@@ -103,6 +105,8 @@ class LoadedProfileScreen extends StatelessWidget {
                     return TweetsSegment(tweets: tweets,);
                   case 1:
                     return RetweetsSegment();
+                  case 2:
+                    return LikesSegment();
                 }
                 return Container();
               },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
@@ -7,6 +8,8 @@ import 'package:twitter_clone/app/presentation/screens/profile_screen/profile_sc
 import 'package:twitter_clone/core/utils/constants.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../core/services/service_locator.dart';
+import '../../controller/like_bloc/like_bloc.dart';
 import '../home_screen/components/home_nav_bar.dart';
 
 class TweetDetailsScreen extends StatelessWidget {
@@ -54,7 +57,7 @@ class TweetDetailsScreen extends StatelessWidget {
                             ),
                             SizedBox(width: 30.sp),
                             Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   tweet.userName,
@@ -68,7 +71,7 @@ class TweetDetailsScreen extends StatelessWidget {
                                 Text(
                                   tweet.handle,
                                   style: TextStyle(
-                                    color: Constants.whiteColor,
+                                    color: Constants.greyColor,
                                     fontFamily: Constants.fontFamily,
                                     fontWeight: Constants.regularFont,
                                     fontSize: 35.sp,
@@ -113,16 +116,72 @@ class TweetDetailsScreen extends StatelessWidget {
                           Constants.retweet,
                           height: 57.sp,
                           width: 57.sp,
+                          colorFilter: ColorFilter.mode(Constants.whiteColor, BlendMode.srcIn),
                         ),
-                        SvgPicture.asset(
-                          Constants.like,
-                          height: 57.sp,
-                          width: 57.sp,
+                        BlocProvider(
+                          lazy: false,
+                          create: (context) => sl<LikeBloc>()..add(getLikedEvent()),
+                          child: BlocBuilder<LikeBloc, LikeState>(
+                            builder: (context, state) {
+                              switch (state.status) {
+                                case LikeStatus.success:
+                                  return GestureDetector(
+                                    onTap: () {
+                                      try {
+                                        context.read<LikeBloc>().add(isLiked(tweet: tweet));
+                                      } on Exception catch (e) {
+                                        print(e);
+                                      }
+                                    },
+                                    child: SvgPicture.asset(
+                                      Constants.like,
+                                      height: 19,
+                                      width: 19,
+                                      colorFilter: ColorFilter.mode(Constants.errorColor, BlendMode.srcIn),
+                                    ),
+                                  );
+                                case LikeStatus.failure:
+                                  return GestureDetector(
+                                    onTap: () {
+                                      try {
+                                        context.read<LikeBloc>().add(isLiked(tweet: tweet));
+                                      } on Exception catch (e) {
+                                        print(e);
+                                      }
+                                    },
+                                    child: SvgPicture.asset(
+                                      Constants.like,
+                                      height: 19,
+                                      width: 19,
+                                      colorFilter: ColorFilter.mode(Constants.whiteColor, BlendMode.srcIn),
+                                    ),
+                                  );
+                              }
+                              return GestureDetector(
+                                onTap: () {
+                                  try {
+                                    context.read<LikeBloc>().add(isLiked(tweet: tweet));
+                                  } on Exception catch (e) {
+                                    print(e);
+                                  }
+                                },
+                                child: SvgPicture.asset(
+                                  Constants.like,
+                                  height: 19,
+                                  width: 19,
+                                  colorFilter: foundInLiked(tweet, state.likedTweets)
+                                      ? ColorFilter.mode(Constants.errorColor, BlendMode.srcIn)
+                                      : ColorFilter.mode(Constants.whiteColor, BlendMode.srcIn),
+                                ),
+                              );
+                            },
+                          ),
                         ),
                         SvgPicture.asset(
                           Constants.share,
                           height: 57.sp,
                           width: 57.sp,
+                          colorFilter: ColorFilter.mode(Constants.whiteColor, BlendMode.srcIn),
                         ),
                       ],
                     ),
@@ -191,5 +250,16 @@ class TweetDetailsScreen extends StatelessWidget {
     } else {
       return date;
     }
+  }
+
+  bool foundInLiked(TweetObject tweet, List<TweetObject> list) {
+    for (var object in list) {
+      if (tweet.content == object.content) {
+        return true;
+      } else {
+        continue;
+      }
+    }
+    return false;
   }
 }
